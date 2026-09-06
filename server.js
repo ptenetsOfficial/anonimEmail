@@ -8,6 +8,8 @@ dotenv.config();
 
 const port = Number(process.env.PORT || 3000);
 const publicDir = path.join(__dirname, 'public');
+const emailUser = process.env.EMAIL_USER?.trim();
+const emailPassword = process.env.EMAIL_PASSWORD?.replace(/\s/g, '');
 
 function sendJson(response, status, payload) {
   response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -41,7 +43,7 @@ function isEmail(value) {
 }
 
 async function handleSend(request, response) {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+  if (!emailUser || !emailPassword) {
     return sendJson(response, 500, {
       error: 'Добавьте EMAIL_USER и EMAIL_PASSWORD в файл .env'
     });
@@ -77,14 +79,14 @@ async function handleSend(request, response) {
     greetingTimeout: 10_000,
     socketTimeout: 15_000,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD
+      user: emailUser,
+      pass: emailPassword
     }
   });
 
   try {
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: emailUser,
       to: recipient,
       subject,
       text: message
@@ -102,7 +104,7 @@ const server = http.createServer(async (request, response) => {
   if (request.method === 'GET' && request.url === '/api/config') {
     return sendJson(response, 200, {
       configured: Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASSWORD),
-      sender: process.env.EMAIL_USER || ''
+      sender: emailUser || ''
     });
   }
 
