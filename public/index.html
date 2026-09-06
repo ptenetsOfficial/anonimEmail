@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f3ec" />
+    <title>Почтовый черновик</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="workspace">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="На главную">
+          <span class="brand-mark">@</span>
+          <span>Почта</span>
+        </a>
+        <span class="connection" aria-label="Статус подключения"><i></i><span id="sender"></span></span>
+      </header>
+
+      <section class="compose-shell" aria-labelledby="page-title">
+        <div class="intro">
+          <h1 id="page-title">Отправить письмо</h1>
+        </div>
+
+        <form id="compose-form" class="compose-form">
+          <label>
+            <span>Кому</span>
+            <input name="recipient" type="email" placeholder="name@example.com" autocomplete="email" required />
+          </label>
+          <label>
+            <span>Тема</span>
+            <input name="subject" type="text" placeholder="О чём письмо?" maxlength="200" required />
+          </label>
+          <label>
+            <span>Сообщение</span>
+            <textarea name="message" rows="9" placeholder="Напишите что-нибудь важное..." maxlength="50000" required></textarea>
+          </label>
+          <div class="form-footer">
+            <button type="submit"><span>Отправить</span><b aria-hidden="true">↗</b></button>
+          </div>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

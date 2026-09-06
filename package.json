@@ -1,0 +1,13 @@
+{
+  "name": "anonim-email",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local Gmail message sender",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "nodemailer": "^7.0.3"
+  }
+}
